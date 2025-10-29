@@ -1,0 +1,45 @@
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace DATABlinding.dataobject.Models
+{
+    public class Contador : INotifyPropertyChanged
+    {
+        private int _conteo;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public int Conteo
+        {
+            get => _conteo;
+            set
+            {
+                if (_conteo != value)
+                {
+                    _conteo = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Contador()
+        {
+            Conteo = 0;
+        }
+
+        public void Contar()
+        {
+            Conteo++;
+        }
+
+        public void Reiniciar()
+        {
+            Conteo = 0;
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}
